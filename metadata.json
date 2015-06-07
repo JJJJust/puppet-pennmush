@@ -1,0 +1,14 @@
+{
+  "name": "jjjjust-pennmush",
+  "version": "0.1.0",
+  "summary": "Manages PennMUSH installations.",
+  "author": "Justin S. Johnson",
+  "license": "Apache-2.0",
+  "dependencies": [
+  	{"name": "puppetlabs-stdlib", "version_requirement": ">=4.2.0"}
+  ],
+  "project_page": "https://github.com/JJJJust/puppet-pennmush",
+  "source": "https://github.com/JJJJust/puppet-pennmush",
+  "issues_url": "https://github.com/JJJJust/puppet-pennmush/issues",
+  "tags": ["pennmush"]
+}

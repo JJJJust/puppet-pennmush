@@ -1,0 +1,538 @@
+# This file is managed by Puppet.
+# Changes outside of Puppet will not persist.
+<% if @mud_name %>
+mud_name <%= @mud_name %>
+<% end -%>
+<% if @port %>
+port <%= @port %>
+<% end -%>
+<% if @ip_addr %>
+ip_addr <%= @ip_addr %>
+<% end -%>
+<% if @use_dns %>
+use_dns <%= @use_dns %>
+<% end -%>
+<% if @input_database %>
+input_database <%= @input_database %>
+<% end -%>
+<% if @output_database %>
+output_database <%= @output_database %>
+<% end -%>
+<% if @crash_database %>
+crash_database <%= @crash_database %>
+<% end -%>
+<% if @mail_database %>
+mail_database <%= @mail_database %>
+<% end -%>
+<% if @chat_database %>
+chat_database <%= @chat_database %>
+<% end -%>
+<% if @compress_program %>
+compress_program <%= @compress_program %>
+<% end -%>
+<% if @uncompress_program %>
+uncompress_program <%= @uncompress_program %>
+<% end -%>
+<% if @compress_suffix %>
+compress_suffix <%= @compress_suffix %>
+<% end -%>
+<% if @player_start %>
+player_start <%= @player_start %>
+<% end -%>
+<% if @master_room %>
+master_room <%= @master_room %>
+<% end -%>
+<% if @base_room %>
+base_room <%= @base_room %>
+<% end -%>
+<% if @ancestor_room %>
+ancestor_room <%= @ancestor_room %>
+<% end -%>
+<% if @ancestor_exit %>
+ancestor_exit <%= @ancestor_exit %>
+<% end -%>
+<% if @ancestor_thing %>
+ancestor_thing <%= @ancestor_thing %>
+<% end -%>
+<% if @ancestor_player %>
+ancestor_player <%= @ancestor_player %>
+<% end -%>
+<% if @default_home %>
+default_home <%= @default_home %>
+<% end -%>
+<% if @access_file %>
+access_file <%= @access_file %>
+<% end -%>
+<% if @names_file %>
+names_file <%= @names_file %>
+<% end -%>
+<% if @chunk_swap_file %>
+chunk_swap_file <%= @chunk_swap_file %>
+<% end -%>
+<% if @chunk_cache_memory %>
+chunk_cache_memory <%= @chunk_cache_memory %>
+<% end -%>
+<% if @chunk_migrate %>
+chunk_migrate <%= @chunk_migrate %>
+<% end -%>
+<% if @ssl_port %>
+ssl_port <%= @ssl_port %>
+<% end -%>
+<% if @ssl_ip_addr %>
+ssl_ip_addr <%= @ssl_ip_addr %>
+<% end -%>
+<% if @ssl_private_key_file %>
+ssl_private_key_file <%= @ssl_private_key_file %>
+<% end -%>
+<% if @ssl_ca_file %>
+ssl_ca_file <%= @ssl_ca_file %>
+<% end -%>
+<% if @ssl_require_client_cert %>
+ssl_require_client_cert <%= @ssl_require_client_cert %>
+<% end -%>
+<% if @money_singular %>
+money_singular <%= @money_singular %>
+<% end -%>
+<% if @money_plural %>
+money_plural <%= @money_plural %>
+<% end -%>
+<% if @idle_timeout %>
+idle_timeout <%= @idle_timeout %>
+<% end -%>
+<% if @unconnected_idle_timeout %>
+unconnected_idle_timeout <%= @unconnected_idle_timeout %>
+<% end -%>
+<% if @keepalive_timeout %>
+keepalive_timeout <%= @keepalive_timeout %>
+<% end -%>
+<% if @max_logins %>
+max_logins <%= @max_logins %>
+<% end -%>
+<% if @max_guests %>
+max_guests <%= @max_guests %>
+<% end -%>
+<% if @starting_money %>
+starting_money <%= @starting_money %>
+<% end -%>
+<% if @paycheck %>
+paycheck <%= @paycheck %>
+<% end -%>
+<% if @guest_paycheck %>
+guest_paycheck <%= @guest_paycheck %>
+<% end -%>
+<% if @max_pennies %>
+max_pennies <%= @max_pennies %>
+<% end -%>
+<% if @max_guest_pennies %>
+max_guest_pennies <%= @max_guest_pennies %>
+<% end -%>
+<% if @starting_quota %>
+starting_quota <%= @starting_quota %>
+<% end -%>
+<% if @player_queue_limit %>
+player_queue_limit <%= @player_queue_limit %>
+<% end -%>
+<% if @queue_chunk %>
+queue_chunk <%= @queue_chunk %>
+<% end -%>
+<% if @active_queue_chunk %>
+active_queue_chunk <%= @active_queue_chunk %>
+<% end -%>
+<% if @function_recursion_limit %>
+function_recursion_limit <%= @function_recursion_limit %>
+<% end -%>
+<% if @function_invocation_limit %>
+function_invocation_limit <%= @function_invocation_limit %>
+<% end -%>
+<% if @call_limit %>
+call_limit <%= @call_limit %>
+<% end -%>
+<% if @queue_entry_cpu_time %>
+queue_entry_cpu_time <%= @queue_entry_cpu_time %>
+<% end -%>
+<% if @max_channels %>
+max_channels <%= @max_channels %>
+<% end -%>
+<% if @max_player_chans %>
+max_player_chans <%= @max_player_chans %>
+<% end -%>
+<% if @max_parents %>
+max_parents <%= @max_parents %>
+<% end -%>
+<% if @max_depth %>
+max_depth <%= @max_depth %>
+<% end -%>
+<% if @max_global_fns %>
+max_global_fns <%= @max_global_fns %>
+<% end -%>
+<% if @chan_cost %>
+chan_cost <%= @chan_cost %>
+<% end -%>
+<% if @whisper_loudness %>
+whisper_loudness <%= @whisper_loudness %>
+<% end -%>
+<% if @max_dbref %>
+max_dbref <%= @max_dbref %>
+<% end -%>
+<% if @max_attrs_per_obj %>
+max_attrs_per_obj <%= @max_attrs_per_obj %>
+<% end -%>
+<% if @mail_limit %>
+mail_limit <%= @mail_limit %>
+<% end -%>
+<% if @kill_min_cost %>
+kill_min_cost <%= @kill_min_cost %>
+<% end -%>
+<% if @kill_default_cost %>
+kill_default_cost <%= @kill_default_cost %>
+<% end -%>
+<% if @kill_bonus %>
+kill_bonus <%= @kill_bonus %>
+<% end -%>
+<% if @find_cost %>
+find_cost <%= @find_cost %>
+<% end -%>
+<% if @page_cost %>
+page_cost <%= @page_cost %>
+<% end -%>
+<% if @quota_cost %>
+quota_cost <%= @quota_cost %>
+<% end -%>
+<% if @queue_cost %>
+queue_cost <%= @queue_cost %>
+<% end -%>
+<% if @queue_loss %>
+queue_loss <%= @queue_loss %>
+<% end -%>
+<% if @room_cost %>
+room_cost <%= @room_cost %>
+<% end -%>
+<% if @object_cost %>
+object_cost <%= @object_cost %>
+<% end -%>
+<% if @link_cost %>
+link_cost <%= @link_cost %>
+<% end -%>
+<% if @exit_cost %>
+exit_cost <%= @exit_cost %>
+<% end -%>
+<% if @purge_interval %>
+purge_interval <%= @purge_interval %>
+<% end -%>
+<% if @dbck_interval %>
+dbck_interval <%= @dbck_interval %>
+<% end -%>
+<% if @warn_interval %>
+warn_interval <%= @warn_interval %>
+<% end -%>
+<% if @float_precision %>
+float_precision <%= @float_precision %>
+<% end -%>
+<% if @log_wipe_passwd %>
+log_wipe_passwd <%= @log_wipe_passwd %>
+<% end -%>
+<% if @player_name_len %>
+player_name_len <%= @player_name_len %>
+<% end -%>
+<% if @max_aliases %>
+max_aliases <%= @max_aliases %>
+<% end -%>
+<% if @use_quota %>
+use_quota <%= @use_quota %>
+<% end -%>
+<% if @dump_interval %>
+dump_interval <%= @dump_interval %>
+<% end -%>
+<% if @forking_dump %>
+forking_dump <%= @forking_dump %>
+<% end -%>
+<% if @dump_warning_5min %>
+dump_warning_5min <%= @dump_warning_5min %>
+<% end -%>
+<% if @dump_warning_1min %>
+dump_warning_1min <%= @dump_warning_1min %>
+<% end -%>
+<% if @dump_message %>
+dump_message <%= @dump_message %>
+<% end -%>
+<% if @dump_complete %>
+dump_complete <%= @dump_complete %>
+<% end -%>
+<% if @connect_file %>
+connect_file <%= @connect_file %>
+<% end -%>
+<% if @motd_file %>
+motd_file <%= @motd_file %>
+<% end -%>
+<% if @wizmotd_file %>
+wizmotd_file <%= @wizmotd_file %>
+<% end -%>
+<% if @quit_file %>
+quit_file <%= @quit_file %>
+<% end -%>
+<% if @newuser_file %>
+newuser_file <%= @newuser_file %>
+<% end -%>
+<% if @down_file %>
+down_file <%= @down_file %>
+<% end -%>
+<% if @register_create_file %>
+register_create_file <%= @register_create_file %>
+<% end -%>
+<% if @guest_file %>
+guest_file <%= @guest_file %>
+<% end -%>
+<% if @full_file %>
+full_file <%= @full_file %>
+<% end -%>
+<% if @connect_html_file %>
+connect_html_file <%= @connect_html_file %>
+<% end -%>
+<% if @motd_html_file %>
+motd_html_file <%= @motd_html_file %>
+<% end -%>
+<% if @wizmotd_html_file %>
+wizmotd_html_file <%= @wizmotd_html_file %>
+<% end -%>
+<% if @quit_html_file %>
+quit_html_file <%= @quit_html_file %>
+<% end -%>
+<% if @newuser_html_file %>
+newuser_html_file <%= @newuser_html_file %>
+<% end -%>
+<% if @down_html_file %>
+down_html_file <%= @down_html_file %>
+<% end -%>
+<% if @register_create_html_file %>
+register_create_html_file <%= @register_create_html_file %>
+<% end -%>
+<% if @guest_html_file %>
+guest_html_file <%= @guest_html_file %>
+<% end -%>
+<% if @full_html_file %>
+full_html_file <%= @full_html_file %>
+<% end -%>
+<% if @help_command %>
+  <%- help_command.each do |h_command, h_command_path| -%>
+help_command <%= h_command %> <%= h_command_path %>
+  <%- end -%>
+<% end -%>
+<% if @ahelp_command %>
+  <%- ahelp_command.each do |ah_command, ah_command_path| -%>
+ahelp_command <%= ah_command %> <%= ah_command_path %>
+  <%- end -%>
+<% end -%>
+<% if @use_ident %>
+use_ident <%= @use_ident %>
+<% end -%>
+<% if @ident_timeout %>
+ident_timeout <%= @ident_timeout %>
+<% end -%>
+<% if @error_log %>
+error_log <%= @error_log %>
+<% end -%>
+<% if @connect_log %>
+connect_log <%= @connect_log %>
+<% end -%>
+<% if @wizard_log %>
+wizard_log <%= @wizard_log %>
+<% end -%>
+<% if @checkpt_log %>
+checkpt_log <%= @checkpt_log %>
+<% end -%>
+<% if @trace_log %>
+trace_log <%= @trace_log %>
+<% end -%>
+<% if @command_log %>
+command_log <%= @command_log %>
+<% end -%>
+<% if @log_commands %>
+log_commands <%= @log_commands %>
+<% end -%>
+<% if @log_forces %>
+log_forces <%= @log_forces %>
+<% end -%>
+<% if @mem_check %>
+mem_check <%= @mem_check %>
+<% end -%>
+<% if @pueblo %>
+pueblo <%= @pueblo %>
+<% end -%>
+<% if @logins %>
+logins <%= @logins %>
+<% end -%>
+<% if @guests %>
+guests <%= @guests %>
+<% end -%>
+<% if @player_creation %>
+player_creation <%= @player_creation %>
+<% end -%>
+<% if @reverse_shs %>
+reverse_shs <%= @reverse_shs %>
+<% end -%>
+<% if @room_connects %>
+room_connects <%= @room_connects %>
+<% end -%>
+<% if @sql_platform %>
+sql_platform <%= @sql_platform %>
+<% end -%>
+<% if @sql_host %>
+sql_host <%= @sql_host %>
+<% end -%>
+<% if @sql_database %>
+sql_database <%= @sql_database %>
+<% end -%>
+<% if @sql_username %>
+sql_username <%= @sql_username %>
+<% end -%>
+<% if @sql_password %>
+sql_password <%= @sql_password %>
+<% end -%>
+<% if @safer_ufun %>
+safer_ufun <%= @safer_ufun %>
+<% end -%>
+<% if @function_side_effects %>
+function_side_effects <%= @function_side_effects %>
+<% end -%>
+<% if @noisy_whisper %>
+noisy_whisper <%= @noisy_whisper %>
+<% end -%>
+<% if @possessive_get %>
+possessive_get <%= @possessive_get %>
+<% end -%>
+<% if @possessive_get_d %>
+possessive_get_d <%= @possessive_get_d %>
+<% end -%>
+<% if @really_safe %>
+really_safe <%= @really_safe %>
+<% end -%>
+<% if @zone_control_zmp_only %>
+zone_control_zmp_only <%= @zone_control_zmp_only %>
+<% end -%>
+<% if @destroy_possessions %>
+destroy_possessions <%= @destroy_possessions %>
+<% end -%>
+<% if @link_to_object %>
+link_to_object <%= @link_to_object %>
+<% end -%>
+<% if @owner_queues %>
+owner_queues <%= @owner_queues %>
+<% end -%>
+<% if @wiz_noaenter %>
+wiz_noaenter <%= @wiz_noaenter %>
+<% end -%>
+<% if @full_invis %>
+full_invis <%= @full_invis %>
+<% end -%>
+<% if @empty_attrs %>
+empty_attrs <%= @empty_attrs %>
+<% end -%>
+<% if @null_eq_zero %>
+null_eq_zero <%= @null_eq_zero %>
+<% end -%>
+<% if @tiny_booleans %>
+tiny_booleans <%= @tiny_booleans %>
+<% end -%>
+<% if @tiny_trim_fun %>
+tiny_trim_fun <%= @tiny_trim_fun %>
+<% end -%>
+<% if @tiny_math %>
+tiny_math <%= @tiny_math %>
+<% end -%>
+<% if @silent_pemit %>
+silent_pemit <%= @silent_pemit %>
+<% end -%>
+<% if @adestroy %>
+adestroy <%= @adestroy %>
+<% end -%>
+<% if @amail %>
+amail <%= @amail %>
+<% end -%>
+<% if @player_listen %>
+player_listen <%= @player_listen %>
+<% end -%>
+<% if @player_ahear %>
+player_ahear <%= @player_ahear %>
+<% end -%>
+<% if @startups %>
+startups <%= @startups %>
+<% end -%>
+<% if @read_remote_desc %>
+read_remote_desc <%= @read_remote_desc %>
+<% end -%>
+<% if @ansi_names %>
+ansi_names <%= @ansi_names %>
+<% end -%>
+<% if @comma_exit_list %>
+comma_exit_list <%= @comma_exit_list %>
+<% end -%>
+<% if @count_all %>
+count_all <%= @count_all %>
+<% end -%>
+<% if @exits_connect_rooms %>
+exits_connect_rooms <%= @exits_connect_rooms %>
+<% end -%>
+<% if @wizwall_prefix %>
+wizwall_prefix <%= @wizwall_prefix %>
+<% end -%>
+<% if @rwall_prefix %>
+rwall_prefix <%= @rwall_prefix %>
+<% end -%>
+<% if @wall_prefix %>
+wall_prefix <%= @wall_prefix %>
+<% end -%>
+<% if @announce_connects %>
+announce_connects <%= @announce_connects %>
+<% end -%>
+<% if @player_name_spaces %>
+player_name_spaces <%= @player_name_spaces %>
+<% end -%>
+<% if @flags_on_examine %>
+flags_on_examine <%= @flags_on_examine %>
+<% end -%>
+<% if @ex_public_attribs %>
+ex_public_attribs <%= @ex_public_attribs %>
+<% end -%>
+<% if @blind_page %>
+blind_page <%= @blind_page %>
+<% end -%>
+<% if @page_aliases %>
+page_aliases <%= @page_aliases %>
+<% end -%>
+<% if @chat_strip_quote %>
+chat_strip_quote <%= @chat_strip_quote %>
+<% end -%>
+<% if @newline_one_char %>
+newline_one_char <%= @newline_one_char %>
+<% end -%>
+<% if @only_ascii_in_names %>
+only_ascii_in_names <%= @only_ascii_in_names %>
+<% end -%>
+<% if @exit_flags %>
+  <% exit_flags.each do |e_flags| -%>
+exit_flags <%= e_flags %>
+  <% end -%>
+<% end -%>
+<% if @room_flags %>
+  <%- room_flags.each do |r_flags| -%>
+room_flags <%= r_flags %>
+  <%- end -%>
+<% end -%>
+<% if @player_flags %>
+  <%- player_flags.each do |p_flags| -%>
+player_flags <%= p_flags %>
+  <%- end -%>
+<% end -%>
+<% if @thing_flags %>
+  <%- thing_flags.each do |t_flags| -%>
+thing_flags <%= t_flags %>
+  <%- end -%>
+<% end -%>
+<% if @channel_flags %>
+  <% channel_flags.each do |c_flags| -%>
+channel_flags <%= @c_flags %>
+  <%- end -%>
+<% end -%>
+
+include alias.cnf
+include restrict.cnf
