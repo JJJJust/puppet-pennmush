@@ -1,22 +1,22 @@
 # This file is managed by Puppet.
 # Changes made outside of Puppet will be overwritten.
 <% if @reserve_aliases %>
-  <%- reserve_aliases.each do |reserve_as| -%>
-reserve_alias <%= reserve_as %>
+  <%- reserve_aliases.each do |reserve_ali| -%>
+reserve_alias <%= reserve_ali %>
   <%- end -%>
 <% end -%>
 <% if @command_aliases %>
-  <%- command_aliases.each do |command_as, command_as_path| -%>
-command_alias <%= command_as %> <%= command_as_path %>
+  <%- command_aliases.each do |command_prime, command_ali| -%>
+command_alias <%= command_prime %> <%= command_ali %>
   <%- end -%>
 <% end -%>
 <% if @function_aliases %>
-  <%- function_aliases.each do |function_as, function_as_path| -%>
-function_alias <%= function_as %> <%= function_as_path %>
+  <%- function_aliases.each do |function_prime, function_ali| -%>
+function_alias <%= function_prime %> <%= function_ali %>
   <%- end -%>
 <% end -%>
 <% if @attribute_aliases %>
-  <%- attribute_aliases.each do |attribute_as, attribute_as_path| -%>
-attribute_alias <%= attribute_as %> <%= attribute_as_path %>
+  <%- attribute_aliases.each do |attribute_prime, attribute_ali| -%>
+attribute_alias <%= attribute_prime %> <%= attribute_ali %>
   <%- end -%>
 <% end -%>
