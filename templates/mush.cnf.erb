@@ -536,3 +536,6 @@ channel_flags <%= @c_flags %>
 
 include alias.cnf
 include restrict.cnf
+<% if @reserve_aliases or @command_aliases or @function_aliases or @attribute_aliases -%>
+include alias_puppet.cnf
+<% end -%>

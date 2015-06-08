@@ -175,7 +175,11 @@ define pennmush::game (
   $room_flags                = undef,
   $player_flags              = undef,
   $thing_flags               = undef,
-  $channel_flags             = undef) {
+  $channel_flags             = undef,
+  $reserve_aliases           = undef,
+  $command_aliases           = undef,
+  $function_aliases          = undef,
+  $attribute_aliases         = undef) {
   file_line { 'restart_gamedir':
     path  => "${gamedir}/restart",
     match => '^GAMEDIR=',
@@ -186,5 +190,18 @@ define pennmush::game (
     path    => "${gamedir}/mush.cnf",
     ensure  => file,
     content => template('pennmush/mush.cnf.erb')
+  }
+
+  if $reserve_aliases or $command_aliases or $function_aliases or $attribute_aliases {
+    file { 'alias_puppet.cnf':
+      path    => "${gamedir}/alias_puppet.cnf",
+      ensure  => file,
+      content => template('pennmush/alias_puppet.cnf.erb')
+    }
+  } else {
+    file { 'alias_puppet.cnf':
+      path   => "${gamedir}/alias_puppet.cnf",
+      ensure => absent
+    }
   }
 }

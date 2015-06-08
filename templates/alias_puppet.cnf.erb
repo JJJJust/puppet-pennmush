@@ -1,0 +1,20 @@
+<% if @reserve_aliases %>
+  <%- reserve_aliases.each do |reserve_as| -%>
+reserve_alias <%= reserve_as %>
+  <%- end -%>
+<% end -%>
+<% if @command_aliases %>
+  <%- command_aliases.each do |command_as, command_as_path| -%>
+command_alias <%= command_as %> <%= command_as_path %>
+  <%- end -%>
+<% end -%>
+<% if @function_aliases %>
+  <%- function_aliases.each do |function_as, function_as_path| -%>
+function_alias <%= function_as %> <%= function_as_path %>
+  <%- end -%>
+<% end -%>
+<% if @attribute_aliases %>
+  <%- attribute_aliases.each do |attribute_as, attribute_as_path| -%>
+attribute_alias <%= attribute_as %> <%= attribute_as_path %>
+  <%- end -%>
+<% end -%>
