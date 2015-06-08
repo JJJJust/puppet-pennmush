@@ -312,13 +312,13 @@ guest_html_file <%= @guest_html_file %>
 <% if @full_html_file %>
 full_html_file <%= @full_html_file %>
 <% end -%>
-<% if @help_command %>
-  <%- help_command.each do |h_command, h_command_path| -%>
+<% if @help_commands %>
+  <%- help_commands.each do |h_command, h_command_path| -%>
 help_command <%= h_command %> <%= h_command_path %>
   <%- end -%>
 <% end -%>
-<% if @ahelp_command %>
-  <%- ahelp_command.each do |ah_command, ah_command_path| -%>
+<% if @ahelp_commands %>
+  <%- ahelp_commands.each do |ah_command, ah_command_path| -%>
 ahelp_command <%= ah_command %> <%= ah_command_path %>
   <%- end -%>
 <% end -%>
