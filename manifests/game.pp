@@ -180,6 +180,211 @@ define pennmush::game (
   $command_aliases           = undef,
   $function_aliases          = undef,
   $attribute_aliases         = undef) {
+  case $gamedir {
+    undef   : { fail("pennmush::game[${title}]: \'gamedir\' must be set.") }
+    default : { validate_absolute_path($gamedir) }
+  }
+
+  if $port {
+    validate_integer($port, 65535, 1)
+  }
+
+  if $player_start {
+    validate_integer($player_start, undef, 0)
+  }
+
+  if $base_room {
+    validate_integer($base_room, undef, 0)
+  }
+
+  if $ancestor_room {
+    validate_integer($ancestor_room, undef, -1)
+  }
+
+  if $ancestor_thing {
+    validate_integer($ancestor_thing, undef, -1)
+  }
+
+  if $ancestor_player {
+    validate_integer($ancestor_player, undef, -1)
+  }
+
+  if $default_home {
+    validate_integer($default_home, undef, 0)
+  }
+
+  if $chunk_cache_memory {
+    validate_integer($chunk_cache_memory, undef, 0)
+  }
+
+  if $ssl_port {
+    validate_integer($ssl_port, 65535, 0)
+  }
+
+  if $max_logins {
+    validate_integer($max_logins, undef, 0)
+  }
+
+  if $max_guests {
+    validate_integer($max_guests, undef, -1)
+  }
+
+  if $starting_money {
+    validate_integer($starting_money)
+  }
+
+  if $paycheck {
+    validate_integer($paycheck)
+  }
+
+  if $guest_paycheck {
+    validate_integer($guest_paycheck)
+  }
+
+  if $max_pennies {
+    validate_integer($max_pennies)
+  }
+
+  if $max_guest_pennies {
+    validate_integer($max_guest_pennies)
+  }
+
+  if $starting_quota {
+    validate_integer($starting_quota)
+  }
+
+  if $player_queue_limit {
+    validate_integer($player_queue_limit)
+  }
+
+  if $queue_chunk {
+    validate_integer($queue_chunk)
+  }
+
+  if $active_queue_chunk {
+    validate_integer($active_queue_chunk)
+  }
+
+  if $function_recursion_limit {
+    validate_integer($function_recursion_limit)
+  }
+
+  if $function_invocation_limit {
+    validate_integer($function_invocation_limit)
+  }
+
+  if $call_limit {
+    validate_integer($call_limit)
+  }
+
+  if $queue_entry_cpu_time {
+    validate_integer($queue_entry_cpu_time)
+  }
+
+  if $max_channels {
+    validate_integer($max_channels)
+  }
+
+  if $max_player_chans {
+    validate_integer($max_player_chans)
+  }
+
+  if $max_parents {
+    validate_integer($max_parents)
+  }
+
+  if $max_depth {
+    validate_integer($max_depth)
+  }
+
+  if $max_global_fns {
+    validate_integer($max_global_fns)
+  }
+
+  if $chan_cost {
+    validate_integer($chan_cost)
+  }
+
+  if $whisper_loudness {
+    validate_integer($whisper_loudness, 100, 0)
+  }
+
+  if $max_dbref {
+    validate_integer($max_dbref, undef, 0)
+  }
+
+  if $max_attrs_per_obj {
+    validate_integer($max_attrs_per_obj)
+  }
+
+  if $mail_limit {
+    validate_integer($mail_limit)
+  }
+
+  if $kill_min_cost {
+    validate_integer($kill_min_cost)
+  }
+
+  if $kill_default_cost {
+    validate_integer($kill_default_cost)
+  }
+
+  if $kill_bonus {
+    validate_integer($kill_bonus)
+  }
+
+  if $find_cost {
+    validate_integer($find_cost)
+  }
+
+  if $page_cost {
+    validate_integer($page_cost)
+  }
+
+  if $quota_cost {
+    validate_integer($quota_cost)
+  }
+
+  if $queue_cost {
+    validate_integer($queue_cost)
+  }
+
+  if $queue_loss {
+    validate_integer($queue_loss)
+  }
+
+  if $room_cost {
+    validate_integer($room_cost)
+  }
+
+  if $object_cost {
+    validate_integer($object_cost)
+  }
+
+  if $link_cost {
+    validate_integer($link_cost)
+  }
+
+  if $float_precision {
+    validate_integer($float_precision)
+  }
+
+  if $player_name_len {
+    validate_integer($player_name_len)
+  }
+
+  if $max_aliases {
+    validate_integer($max_aliases)
+  }
+
+  if ($port == $ssl_port) and ($port > 0) and ($ssl_port > 0) {
+    fail("pennmush::game[${title}]: \'port\' and \'ssl_port\' must be different.")
+  }
+
+  if ($port == undef) and ($ssl_port == 4201) {
+    fail("pennmush::game[${title}]: \'ssl_port\' can not be 4201 when \'port\' is undefined.")
+  }
+
   file_line { 'restart_gamedir':
     path  => "${gamedir}/restart",
     match => '^GAMEDIR=',
