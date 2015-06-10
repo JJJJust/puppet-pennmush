@@ -1,15 +1,14 @@
 class pennmush::params {
-   
   case $operatingsystem {
-    /(Debian)/: {
+    /(?i:Debian)/ : {
       if $pennmush::mysql_support {
         $packages = 'pennmush-mysql'
-      }
-      else {
+      } else {
         $packages = 'pennmush'
       }
     }
-    default:  {
+    default       : {
+      $packages = false
     }
   }
 }
