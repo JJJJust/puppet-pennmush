@@ -377,7 +377,7 @@ define pennmush::game (
     validate_integer($max_aliases)
   }
 
-  if ($port == $ssl_port) and ($port > 0) and ($ssl_port > 0) {
+  if ($port) and ($ssl_port) and ($port == $ssl_port) {
     fail("pennmush::game[${title}]: \'port\' and \'ssl_port\' must be different.")
   }
 
