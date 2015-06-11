@@ -2,3 +2,8 @@
 .settings/
 .project
 *.md.html
+
+# RSpec
+spec/fixtures/
+spec/spec.opts
+.fixtures.yml
