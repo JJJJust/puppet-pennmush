@@ -12,8 +12,20 @@
 #
 class pennmush (
   $mysql_support = false,
-  $config_only   = true,
-  $packages      = $pennmush::params::packages) inherits pennmush::params {
+  $config_only   = true) {
+  case $operatingsystem {
+    'Debian' : {
+      if ($mysql_support) {
+        $packages = 'pennmush-mysql'
+      } else {
+        $packages = 'pennmush'
+      }
+    }
+    default  : {
+      $packages = false
+    }
+  }
+
   if ($config_only == false and $packages == false) {
     warning('Installation management is not available on this operating system.')
   }
