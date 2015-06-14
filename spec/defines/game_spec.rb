@@ -68,14 +68,41 @@ describe 'pennmush::game', :type => 'define' do
     'ssl_port'
     ]
 
-  # Variables that trigger creation of alias_puppet.cnf
-  aliases = {
+  #Variables that need to validate as a hash
+  hashvars = [
+    'help_commands',
+    'ahelp_commands',
+    'command_aliases',
+    'function_aliases',
+    'attribute_aliases'
+    ]
+
+  #Variables that need to validate as an array
+  arrayvars = [
+    'exit_flags',
+    'room_flags',
+    'player_flags',
+    'thing_flags',
+    'channel_flags',
+    'reserve_aliases'
+    ]
+
+  #Alias variables and their alias.cnf directives
+  #that are in array format
+  aliasarrayvars = {
     'reserve_aliases' => 'reserve_alias',
+    }
+
+  #Alias variables and their alias.cnf directives
+  #that are in hash format
+  aliashashvars = {
     'command_aliases' => 'command_alias',
     'function_aliases' => 'function_alias',
-    'attribute_aliases' => 'attribute_alias' }
+    'attribute_aliases' => 'attribute_alias'
+  }
 
-  # Static integers used in testing
+
+  # Static data used in testing
   integers = {
     'neg' => '-999',
     'neg1' => '-1',
@@ -84,7 +111,10 @@ describe 'pennmush::game', :type => 'define' do
     'portValidA' => '1701',
     'portValidB' => '1702',
     'portLoInvalid' => '-99999',
-    'portHiInvalid' => '99999'
+    'portHiInvalid' => '99999',
+    'string' => 'ABC',
+    'array' => ['test1', 'test2'],
+    'hash' => {'test1' => 'value1', 'test2' => 'value2'}
     }
 
   let(:params) { { :gamedir => "/home/test_user/pennmush/game" } }
@@ -274,6 +304,46 @@ describe 'pennmush::game', :type => 'define' do
       end
       end
     end
+
+    context "is an array" do
+      arrayvars.each do |var|
+
+      context "and #{var} is given a string" do
+        let(:params) do
+          super().merge( { :"#{var}" => 'ABC'} )
+        end
+        it { is_expected.to raise_error(Puppet::Error) }
+      end
+
+      context "and #{var} is given an array" do
+        let(:params) do
+          super().merge( { :"#{var}" => ['test1', 'test2']} )
+        end
+        it { is_expected.not_to raise_error }
+      end
+
+      end
+    end
+
+    context "is a hash" do
+      hashvars.each do |var|
+
+        context "and ${var} is given a string" do
+          let(:params) do
+            super().merge( { :"#{var}" => 'ABC' } )
+          end
+          it {is_expected.to raise_error(Puppet::Error) }
+        end
+
+        context "and ${var} is given a hash" do
+        let(:params) do
+          super().merge( { :"#{var}" => {'test1' => 'value1', 'test2' => 'value2'} } )
+        end
+        it { is_expected.not_to raise_error }
+        end
+
+    end
+    end
   end
 
   context "when $ssl_port is defined" do
@@ -318,22 +388,31 @@ describe 'pennmush::game', :type => 'define' do
          )
      end
 
-     context "handling an alias variable" do
+     context "with an alias variable" do
        context "that expects an array" do
-         aliases.each do |var, directive|
-           context "and #{var} is defined with an array" do
-             let(:params) do
+         aliasarrayvars.each do |var, directive|
+         context "and #{var} is defined with an array" do
+           let(:params) do
                super().merge( { :"#{var}" => [ 'valid' ] } )
            end
-           it do
-             pending("module does not yet validate alias input")
-             #is_expected.to contain_file('alias_puppet.cnf').with(
-             #'path' => "#{params[:gamedir]}/alias_puppet.cnf")
-             #is_expected.to contain_file('alias_puppet.cnf').with_content(
-             #/(?mi-x:^(#{directive} valid))/)
-             fail
-           end
+           it { is_expected.to contain_file('alias_puppet.cnf').with(
+           'path' => "#{params[:gamedir]}/alias_puppet.cnf") }
+           it { is_expected.to contain_file('alias_puppet.cnf').with_content(
+           /(?mi-x:^(#{directive} valid))/) }
           end
+         end
+       end
+       context "that expects a hash" do
+         aliashashvars.each do |var, directive|
+         context "and #{var} is defined with a hash" do
+           let(:params) do
+             super().merge( { :"#{var}" => {'test1' => 'value1'} } )
+           end
+           it { is_expected.to contain_file('alias_puppet.cnf').with(
+           'path' => "#{params[:gamedir]}/alias_puppet.cnf") }
+           it { is_expected.to contain_file('alias_puppet.cnf').with_content(
+           /(?mi-x:^(#{directive} test1 value1))/) }
+         end
          end
        end
      end

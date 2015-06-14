@@ -377,6 +377,50 @@ define pennmush::game (
     validate_integer($max_aliases)
   }
 
+  if $help_commands {
+    validate_hash($help_commands)
+  }
+
+  if $ahelp_commands {
+    validate_hash($ahelp_commands)
+  }
+
+  if $command_aliases {
+    validate_hash($command_aliases)
+  }
+
+  if $function_aliases {
+    validate_hash($function_aliases)
+  }
+
+  if $attribute_aliases {
+    validate_hash($attribute_aliases)
+  }
+
+  if $exit_flags {
+    validate_array($exit_flags)
+  }
+
+  if $room_flags {
+    validate_array($room_flags)
+  }
+
+  if $player_flags {
+    validate_array($player_flags)
+  }
+
+  if $thing_flags {
+    validate_array($thing_flags)
+  }
+
+  if $channel_flags {
+    validate_array($channel_flags)
+  }
+
+  if $reserve_aliases {
+    validate_array($reserve_aliases)
+  }
+
   if ($port) and ($ssl_port) and ($port == $ssl_port) {
     fail("pennmush::game[${title}]: \'port\' and \'ssl_port\' must be different.")
   }
