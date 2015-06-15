@@ -2,6 +2,58 @@ require 'spec_helper'
 
 describe 'pennmush::game', :type => 'define' do
 
+  # Static data used in testing
+  sampledata = {
+    :negint => -999,
+    :neg1int => -1,
+    :posintint => 999,
+    :string => 'ABC',
+    :portValidA => 1701,
+    :portValidB => 1702,
+    :portLoInvalid => -99999,
+    :portHiInvalid => 99999,
+    'array' => ['test1', 'test2'],
+    'hash' => {'test1' => 'value1', 'test2' => 'value2'}
+    }
+
+shared_examples 'provided a positive integer' do |variable|
+  let(:params) do
+    super().merge( { "#{variable}" => "#{sampledata[:posint]}" } )
+  end
+end
+
+shared_examples 'provided a negative integer' do |variable|
+  let(:params) do
+    super().merge( { "#{variable}" => "#{sampledata[:negint]}" } )
+  end
+end
+
+shared_examples 'provided a string' do |variable|
+  let(:params) do
+    super().merge( { "#{variable}" => "#{sampledata[:string]}" } )
+  end
+end
+
+shared_examples 'expects no error' do
+  it { is_expected.not_to raise_error }
+end
+
+shared_examples 'expected integer got non-integer' do
+  it { is_expected.to raise_error(Puppet::Error) }
+end
+
+shared_examples 'expected negative integer got positive integer' do
+  it { is_expected.to raise_error(Puppet::Error) }
+end
+
+shared_examples 'expected positive integer got negative integer' do
+  it { is_expected.to raise_error(Puppet::Error) }
+end
+
+shared_examples 'got integer out of range' do
+  it { is_expected.to raise_error(Puppet::Error) }
+end
+
   # Any integer
   intany = [
     'starting_money',
@@ -101,22 +153,6 @@ describe 'pennmush::game', :type => 'define' do
     'attribute_aliases' => 'attribute_alias'
   }
 
-
-  # Static data used in testing
-  integers = {
-    'neg' => '-999',
-    'neg1' => '-1',
-    'pos' => '999',
-    'false' => "ABC",
-    'portValidA' => '1701',
-    'portValidB' => '1702',
-    'portLoInvalid' => '-99999',
-    'portHiInvalid' => '99999',
-    'string' => 'ABC',
-    'array' => ['test1', 'test2'],
-    'hash' => {'test1' => 'value1', 'test2' => 'value2'}
-    }
-
   let(:params) { { :gamedir => "/home/test_user/pennmush/game" } }
   let(:title) { 'RSpecTestMUSH' }
 
@@ -142,213 +178,192 @@ describe 'pennmush::game', :type => 'define' do
     context 'is any integer' do
       intany.each do |var|
 
-      context "and $#{var} is given #{integers['pos']}" do
-        let(:params) do
-          super().merge( { :"#{var}" => "#{integers['pos']}"} )
+        context "and $#{var} is given #{sampledata[:posint]}" do
+          include_examples 'provided a positive integer', "#{var}"
+          it_behaves_like 'expects no error'
         end
-        it { is_expected.not_to raise_error() }
-      end
 
-      context "and $#{var} is given #{integers['neg']}" do
-        let(:params) do
-          super().merge( { :"#{var}" => "#{integers['pos']}"} )
+        context "and $#{var} is given #{sampledata[:negint]}" do
+          include_examples 'provided a negative integer', "#{var}"
+          it_behaves_like 'expects no error'
         end
-        it { is_expected.not_to raise_error() }
-      end
 
-
-      context "and $#{var} is given #{integers['false']}" do
-        let(:params) do
-            super().merge( { :"#{var}" => "#{integers['false']}"} )
+        context "and $#{var} is given #{sampledata[:string]}" do
+          include_examples 'provided a string', "#{var}"
+          it_behaves_like 'expected integer got non-integer'
         end
-        it { is_expected.to raise_error(Puppet::Error) }
-      end
       end
     end
 
-    context "is any integer >= 0" do
+    context 'is any integer >= 0' do
       intGTE0.each do |var|
 
-      context "and $#{var} is given #{integers['neg']}" do
-        let(:params) do
-          super().merge( { :"#{var}" => "#{integers['neg']}" } )
-        end
-          it { is_expected.to raise_error(Puppet::Error) }
+      context "and $#{var} is given #{sampledata[:negint]}" do
+        include_examples 'provided a negative integer', "#{var}"
+        it_behaves_like 'got integer out of range'
         end
 
       context "and $#{var} is given 0" do
         let(:params) do
-          super().merge( { :"#{var}" => '0'} )
+          super().merge( { "#{var}" => '0'} )
         end
-        it { is_expected.not_to raise_error }
+        include_examples 'expects no error'
       end
 
-      context "and $#{var} is given #{integers['pos']}" do
-        let(:params) do
-          super().merge( { :"#{var}" => "#{integers['pos']}" } )
-        end
-        it { is_expected.not_to raise_error }
+      context "and $#{var} is given #{sampledata[:posint]}" do
+        include_examples 'provided a positive integer', "#{var}"
+        it_behaves_like 'expects no error'
       end
 
-      context "and $#{var} is given #{integers['false']}" do
-        let(:params) do
-          super().merge( { :"#{var}" => "#{integers['false']}" } )
-        end
-        it { is_expected.to raise_error(Puppet::Error) }
+      context "and $#{var} is given #{sampledata[:string]}" do
+        include_examples 'provided a string', "#{var}"
+        it_behaves_like 'expected integer got non-integer'
       end
     end
     end
 
-    context "is any integer >= -1" do
+    context 'is any integer >= -1' do
       intGTEn1.each do |var|
 
-      context "and $#{var} is given #{integers['neg']}" do
-        let(:params) do
-          super().merge( { :"#{var}" => "#{integers['neg']}" } )
-        end
+      context "and $#{var} is given #{sampledata[:negint]}" do
+        include_examples 'provided a negative integer', "#{var}"
         it { is_expected.to raise_error(Puppet::Error) }
       end
 
-      context "and $#{var} is given #{integers['neg1']}" do
+      context "and $#{var} is given #{sampledata[:neg1int]}" do
         let(:params) do
-          super().merge( { :"#{var}" => "#{integers['neg1']}" } )
+          super().merge( { "#{var}" => "#{sampledata[:neg1int]}" } )
         end
-        it { is_expected.not_to raise_error }
+        it_behaves_like 'expects no error'
       end
 
       context "and $#{var} is given 0" do
         let(:params) do
-          super().merge( { :"#{var}" => '0'} )
+          super().merge( { "#{var}" => '0'} )
         end
-        it { is_expected.not_to raise_error }
+        it_behaves_like 'expects no error'
       end
 
-      context "and $#{var} is given #{integers['pos']}" do
-        let(:params) do
-          super().merge( { :"#{var}" => "#{integers['pos']}" } )
-        end
-        it { is_expected.not_to raise_error }
+      context "and $#{var} is given #{sampledata[:posint]}" do
+        include_examples 'provided a positive integer', "#{var}"
+        it_behaves_like 'expects no error'
       end
 
       context "and $#{var} is given a non-integer" do
-        let(:params) do
-          super().merge( { :"#{var}" => "#{integers['false']}" } )
-        end
-        it { is_expected.to raise_error(Puppet::Error) }
+        include_examples 'provided a string', "#{var}"
+        it_behaves_like 'expected integer got non-integer'
       end
     end
     end
 
-    context "is between 0 and 100" do
+    context 'is between 0 and 100' do
       int0_100.each do |var|
 
       context "when $#{var} is given -150" do
         let(:params) do
-          super().merge( { :"#{var}" => '-150' } )
+          super().merge( { "#{var}" => '-150' } )
         end
-        it { is_expected.to raise_error(Puppet::Error) }
+        it_behaves_like 'got integer out of range'
       end
 
       context "when $#{var} is given 0" do
         let(:params) do
-          super().merge( { :"#{var}" => '0' } )
+          super().merge( { "#{var}" => '0' } )
         end
-        it { is_expected.not_to raise_error }
+        it_behaves_like 'expects no error'
       end
 
       context "when $#{var} is given 50" do
         let(:params) do
-          super().merge( { :"#{var}" => '50' } )
+          super().merge( { "#{var}" => '50' } )
         end
-        it { is_expected.not_to raise_error }
+        it_behaves_like 'expects no error'
       end
 
       context "when $#{var} is given 150" do
         let(:params) do
-          super().merge( { :"#{var}" => '150' } )
+          super().merge( { "#{var}" => '150' } )
         end
-        it { is_expected.to raise_error(Puppet::Error) }
+        it_behaves_like 'got integer out of range'
       end
   end
   end
 
-    context "is any RFC 6335 port number" do
+    context 'is any RFC 6335 port number' do
       rfcPort.each do |var|
 
-      context "and $#{var} is given #{integers['portLoInvalid']}" do
+      context "and $#{var} is given #{sampledata[:portLoInvalid]}" do
         let(:params) do
-          super().merge( { :"#{var}" => "#{integers['portLoInvalid']}"} )
+          super().merge( { "#{var}" => "#{sampledata[:portLoInvalid]}"} )
         end
           it { is_expected.to raise_error(Puppet::Error) }
       end
 
-      context "and $#{var} is given #{integers['portValidA']}" do
+      context "and $#{var} is given #{sampledata[:portValidA]}" do
         let(:params) do
-          super().merge( { "#{var}" => "#{integers['portValidA']}"} )
+          super().merge( { "#{var}" => "#{sampledata[:portValidA]}"} )
         end
-        it { is_expected.not_to raise_error }
+        it_behaves_like 'expects no error'
       end
 
-      context "and $#{var} is given #{integers['portHiInvalid']}" do
+      context "and $#{var} is given #{sampledata[:portHiInvalid]}" do
         let(:params) do
-          super().merge( { :"#{var}" => "#{integers['portHiInvalid']}"} )
+          super().merge( { "#{var}" => "#{sampledata[:portHiInvalid]}"} )
         end
         it { is_expected.to raise_error(Puppet::Error) }
         end
 
-      context "and $#{var} is given #{integers['false']}" do
-        let(:params) do
-          super().merge( { :"#{var}" => "#{integers['false']}"} )
-        end
+      context "and $#{var} is given #{sampledata[:string]}" do
+        include_examples 'provided a string', "#{var}"
         it { is_expected.to raise_error(Puppet::Error) }
       end
       end
     end
 
-    context "is an array" do
+    context 'is an array' do
       arrayvars.each do |var|
 
       context "and #{var} is given a string" do
         let(:params) do
-          super().merge( { :"#{var}" => 'ABC'} )
+          super().merge( { "#{var}" => 'ABC'} )
         end
         it { is_expected.to raise_error(Puppet::Error) }
       end
 
       context "and #{var} is given an array" do
         let(:params) do
-          super().merge( { :"#{var}" => ['test1', 'test2']} )
+          super().merge( { "#{var}" => ['test1', 'test2']} )
         end
-        it { is_expected.not_to raise_error }
+        it_behaves_like 'expects no error'
       end
 
       end
     end
 
-    context "is a hash" do
+    context 'is a hash' do
       hashvars.each do |var|
 
         context "and ${var} is given a string" do
           let(:params) do
-            super().merge( { :"#{var}" => 'ABC' } )
+            super().merge( { "#{var}" => "#{sampledata[:string]}" } )
           end
           it {is_expected.to raise_error(Puppet::Error) }
         end
 
         context "and ${var} is given a hash" do
         let(:params) do
-          super().merge( { :"#{var}" => {'test1' => 'value1', 'test2' => 'value2'} } )
+          super().merge( { "#{var}" => {'test1' => 'value1', 'test2' => 'value2'} } )
         end
-        it { is_expected.not_to raise_error }
+          it_behaves_like 'expects no error'
         end
 
     end
     end
   end
 
-  context "when $ssl_port is defined" do
+  context 'when $ssl_port is defined' do
 
-    context "as 4201 and $port is NOT defined" do
+    context 'as 4201 and $port is NOT defined' do
       let(:params) do
         super().merge( {
           :ssl_port => '4201',
@@ -357,27 +372,27 @@ describe 'pennmush::game', :type => 'define' do
       it { is_expected.to raise_error(Puppet::Error) }
     end
 
-    context "and $port is defined and identical" do
+    context 'and $port is defined and identical' do
       let(:params) do
         super().merge( {
-          :ssl_port => "#{integers['portValidA']}",
-          :port => "#{integers['portValidA']}"
+          :ssl_port => "#{sampledata[:portValidA]}",
+          :port => "#{sampledata[:portValidA]}"
         } )
       end
       it { is_expected.to raise_error(Puppet::Error) }
     end
 
-    context "and $port is defined and different" do
+    context 'and $port is defined and different' do
       let(:params) do
         super().merge( {
-          :ssl_port => "#{integers['PortValidA']}",
-          :port => "#{integers['PortValidB']}" } )
+          :ssl_port => "#{sampledata[:portValidA]}",
+          :port => "#{sampledata[:portValidB]}" } )
       end
-      it { is_expected.not_to raise_error }
+      it_behaves_like 'expects no error'
       end
    end
 
-   context "when in a valid configuration" do
+   context 'when in a valid configuration' do
      it do
        is_expected.to contain_file_line('restart_gamedir').with(
          'path' => "#{params[:gamedir]}/restart",
@@ -388,12 +403,12 @@ describe 'pennmush::game', :type => 'define' do
          )
      end
 
-     context "with an alias variable" do
-       context "that expects an array" do
+     context 'with an alias variable' do
+       context 'that expects an array' do
          aliasarrayvars.each do |var, directive|
          context "and #{var} is defined with an array" do
            let(:params) do
-               super().merge( { :"#{var}" => [ 'valid' ] } )
+               super().merge( { "#{var}" => [ 'valid' ] } )
            end
            it { is_expected.to contain_file('alias_puppet.cnf').with(
            'path' => "#{params[:gamedir]}/alias_puppet.cnf") }
@@ -402,11 +417,11 @@ describe 'pennmush::game', :type => 'define' do
           end
          end
        end
-       context "that expects a hash" do
+       context 'that expects a hash' do
          aliashashvars.each do |var, directive|
          context "and #{var} is defined with a hash" do
            let(:params) do
-             super().merge( { :"#{var}" => {'test1' => 'value1'} } )
+             super().merge( { "#{var}" => {'test1' => 'value1'} } )
            end
            it { is_expected.to contain_file('alias_puppet.cnf').with(
            'path' => "#{params[:gamedir]}/alias_puppet.cnf") }
